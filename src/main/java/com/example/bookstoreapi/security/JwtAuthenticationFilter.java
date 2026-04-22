@@ -1,7 +1,5 @@
 package com.example.bookstoreapi.security;
 
-import com.example.bookstoreapi.security.JwtService;
-import com.example.bookstoreapi.security.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +24,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        return path.startsWith("/api/auth/") || path.startsWith("/h2-console");
+        return path.startsWith("/auth/") || path.startsWith("/h2-console")
+                || path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui");
     }
 
     @Override

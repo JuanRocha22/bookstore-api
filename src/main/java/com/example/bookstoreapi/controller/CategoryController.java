@@ -2,6 +2,7 @@ package com.example.bookstoreapi.controller;
 
 import com.example.bookstoreapi.dto.request.CategoryRequest;
 import com.example.bookstoreapi.dto.response.ApiResponse;
+import com.example.bookstoreapi.dto.response.BookResponse;
 import com.example.bookstoreapi.dto.response.CategoryResponse;
 import com.example.bookstoreapi.service.CategoryService;
 import jakarta.validation.Valid;
@@ -36,6 +37,12 @@ public class CategoryController {
     public ResponseEntity<ApiResponse<List<CategoryResponse>>> getAll() {
         List<CategoryResponse> categories = categoryService.getAll();
         return buildResponse(HttpStatus.OK, "Categories retrieved successfully", categories);
+    }
+
+    @GetMapping("/{id}/books")
+    public ResponseEntity<ApiResponse<List<BookResponse>>> getBooksByCategory(@PathVariable Long id) {
+        List<BookResponse> books = categoryService.getBooksByCategoryId(id);
+        return buildResponse(HttpStatus.OK, "Category books retrieved successfully", books);
     }
 
     @PutMapping("/{id}")

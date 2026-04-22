@@ -1,0 +1,71 @@
+# ER Diagram
+
+```mermaid
+erDiagram
+    USERS {
+        bigint id PK
+        varchar name
+        varchar email UK
+        varchar password
+        enum role
+    }
+
+    AUTHORS {
+        bigint id PK
+        varchar name
+        varchar biography
+        varchar email
+    }
+
+    BOOKS {
+        bigint id PK
+        varchar title
+        varchar isbn UK
+        decimal price
+        integer stock
+        bigint author_id FK
+    }
+
+    CATEGORIES {
+        bigint id PK
+        varchar name UK
+    }
+
+    BOOK_CATEGORIES {
+        bigint book_id FK
+        bigint category_id FK
+    }
+
+    ORDERS {
+        bigint id PK
+        bigint user_id FK
+        enum status
+        decimal total
+        timestamp created_at
+    }
+
+    ORDER_ITEMS {
+        bigint id PK
+        bigint order_id FK
+        bigint book_id FK
+        integer quantity
+        decimal unit_price
+        decimal subtotal
+    }
+
+    AUTHORS ||--o{ BOOKS : writes
+    BOOKS ||--o{ BOOK_CATEGORIES : has
+    CATEGORIES ||--o{ BOOK_CATEGORIES : groups
+    USERS ||--o{ ORDERS : places
+    ORDERS ||--o{ ORDER_ITEMS : contains
+    BOOKS ||--o{ ORDER_ITEMS : ordered_as
+```
+
+## Relationships
+
+- One author can have many books.
+- One book belongs to one author.
+- Books and categories have a many-to-many relationship through `book_categories`.
+- One user can place many orders.
+- One order contains many order items.
+- One order item references one book.

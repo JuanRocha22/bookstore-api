@@ -43,6 +43,5 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     @Builder.Default
-
     private List<Category> categories = new ArrayList<>();
 }
