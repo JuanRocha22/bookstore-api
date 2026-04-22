@@ -3,6 +3,7 @@ package com.example.bookstoreapi.controller;
 import com.example.bookstoreapi.dto.request.AuthorRequest;
 import com.example.bookstoreapi.dto.response.ApiResponse;
 import com.example.bookstoreapi.dto.response.AuthorResponse;
+import com.example.bookstoreapi.dto.response.BookResponse;
 import com.example.bookstoreapi.service.AuthorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,12 @@ public class AuthorController {
     public ResponseEntity<ApiResponse<List<AuthorResponse>>> getAll() {
         List<AuthorResponse> authors = authorService.getAll();
         return buildResponse(HttpStatus.OK, "Authors retrieved successfully", authors);
+    }
+
+    @GetMapping("/{id}/books")
+    public ResponseEntity<ApiResponse<List<BookResponse>>> getBooksByAuthor(@PathVariable Long id) {
+        List<BookResponse> books = authorService.getBooksByAuthorId(id);
+        return buildResponse(HttpStatus.OK, "Author books retrieved successfully", books);
     }
 
     @PutMapping("/{id}")
