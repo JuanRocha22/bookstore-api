@@ -273,3 +273,4 @@ chore: update configuration
 - Coleccion Postman exportada en JSON: [`postman/bookstore-api.postman_collection.json`](postman/bookstore-api.postman_collection.json).
 - README con instrucciones de ejecucion.
 - Diagrama ER del modelo de datos: [`docs/er-diagram.md`](docs/er-diagram.md).
+- Diagrama ER en formato Mermaid puro: [`docs/er-diagram.mmd`](docs/er-diagram.mmd).
