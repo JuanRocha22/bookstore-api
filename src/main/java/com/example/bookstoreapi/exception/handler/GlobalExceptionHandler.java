@@ -16,6 +16,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import com.example.bookstoreapi.exception.custom.AuthorHasBooksException;
 
 import java.time.Instant;
 import java.util.List;
@@ -144,5 +145,15 @@ public class GlobalExceptionHandler {
 
     private String formatFieldError(FieldError fieldError) {
         return fieldError.getField() + ": " + fieldError.getDefaultMessage();
+
+
+
+    }
+    @ExceptionHandler(AuthorHasBooksException.class)
+    public ResponseEntity<ApiErrorResponse> handleAuthorHasBooksException(
+            AuthorHasBooksException ex,
+            HttpServletRequest request
+    ) {
+        return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage(), List.of(ex.getMessage()), request);
     }
 }

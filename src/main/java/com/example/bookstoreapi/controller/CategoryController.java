@@ -2,6 +2,7 @@ package com.example.bookstoreapi.controller;
 
 import com.example.bookstoreapi.dto.request.CategoryRequest;
 import com.example.bookstoreapi.dto.response.ApiResponse;
+import com.example.bookstoreapi.dto.response.BookResponse;
 import com.example.bookstoreapi.dto.response.CategoryResponse;
 import com.example.bookstoreapi.service.CategoryService;
 import jakarta.validation.Valid;
@@ -51,6 +52,12 @@ public class CategoryController {
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         categoryService.delete(id);
         return buildResponse(HttpStatus.OK, "Category deleted successfully", null);
+    }
+
+    @GetMapping("/{id}/books")
+    public ResponseEntity<ApiResponse<List<BookResponse>>> getBooksByCategoryId(@PathVariable Long id) {
+        List<BookResponse> books = categoryService.getBooksByCategoryId(id);
+        return buildResponse(HttpStatus.OK, "Category books retrieved successfully", books);
     }
 
     private <T> ResponseEntity<ApiResponse<T>> buildResponse(HttpStatus status, String message, T data) {
